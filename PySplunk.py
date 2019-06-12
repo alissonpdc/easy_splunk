@@ -8,30 +8,30 @@
 #                                                                        #
 ##########################################################################
 
+
 import requests
 import json
-import urllib3
-from threading import Thread
+from multiprocessing import Process
 
-class Splunk:
+
+class Splunk():
     '''
     DOCSTRING: Funcao para abstracao do envio de dados em formato json para o Splunk Itau
     INPUT: string ambiente ("prod"/"dev"/"shadow")
-           file log_file
            int timeout
     OUTPUT: apenas em caso de erro
     '''
     def __init__(self,ambiente,timeout=30):
-        if(ambiente == 'prod'.lower()):
+        if(ambiente.lower() == 'prod'):
             self.url = 'https://172.31.25.55:8088'
             self.key = '29A2070B-4D03-4695-8BC9-D332D7B71B64'
-        elif(ambiente == 'dev'.lower()):
+        elif(ambiente.lower() == 'dev'):
             self.url = 'https://10.56.156.65:8088'
             self.key = '4da23032-3be2-4435-9be3-e93db3652415'
-        elif(ambiente == 'shadow'.lower()):
+        elif(ambiente.lower() == 'shadow'):
             self.url = 'http://10.54.39.199:8088'
             self.key = 'e386f95c-97d1-4bcb-b884-313167c3bf11'
-        elif(ambiente == 'teste'.lower()):
+        elif(ambiente.lower() == 'teste'):
             self.url = 'http://testeee.itau'
             self.key = 'e386f95c-97d1-4bcb-b884-313167c3bf11'
         else:
@@ -41,8 +41,8 @@ class Splunk:
         self.ambiente = ambiente
         self.headers = {'Authorization': 'Splunk '+self.key}
         self.export_url = self.url+'/services/collector/event'
-        urllib3.disable_warnings()
 
+        
     def __str__(self):
         '''
         Funcao para print() das variaveis do objeto Splunk
@@ -82,4 +82,4 @@ class Splunk:
         '''
         event_data = '{"host":"'+host+'","source":"'+source+'","event":'+json.dumps(event)+'}' 
 
-        Thread(target=self._export,args=[event_data]).start()
+        Process(target=self._export,args=(event_data,)).start()
