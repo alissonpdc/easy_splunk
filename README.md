@@ -1,11 +1,10 @@
-# easy_splunk Package
+# easy_splunk
 
 [![PyPI](https://img.shields.io/pypi/v/easy_splunk.svg)](https://pypi.python.org/pypi/easy_splunk)
 
-EASY_SPLUNK
 ======
 
-![Splunk logo](static/splunk_logo.png?raw=true "Splunk logo")
+![Splunk logo](static/Splunk_logo.png?raw=true "Splunk logo")
 
 Supported Network Operating Systems
 -----------------------------------
