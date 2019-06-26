@@ -4,8 +4,8 @@ with open("README.md", "r") as readme:
     long_description = readme.read()
 
 setuptools.setup(
-    name="pysplunk",
-    version="0.0.2",
+    name="easy_splunk",
+    version="0.0.1",
     author="Alisson Prado da Cruz",
     author_email="alissonpdc@gmail.com",
     description="A simple and complete package to abstract main operations with Splunk API (send data / run search / get result)",
@@ -28,3 +28,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
 )
+
+if __name__=="__main__":
+    print("This python file is not supposed to run as main")
