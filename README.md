@@ -1,7 +1,7 @@
 [![PyPI](https://img.shields.io/pypi/v/easy_splunk.svg)](https://pypi.python.org/pypi/easy_splunk)
 
 
-easy_![Splunk logo](static/Splunk_logo.png "Splunk logo")
+easy_![Splunk logo](static/Splunk_logo.png?raw=true&size=200 "Splunk logo")
 =====
 
 Supported Network Operating Systems
