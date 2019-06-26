@@ -1,7 +1,7 @@
-import requests
-import json
+from requests import Session
 from multiprocessing import Process
-
+import json
+import socket
 
 class Splunk():
     '''
@@ -16,73 +16,84 @@ class Splunk():
         - send_data(): send data to Splunk by HEC/syslog;
 
     INPUT:
-        - string URL ("https://wxyz")
-        - int port
-        - string type ("hec" / "syslog")
-        - *string key
-        - *int timeout
+        - string protocol (options: "http" / "https" / "syslog")
+        - string url (examples: "splunk.domain" / "10.0.0.100")
+        - int port (examples: "8088" / "514")
+      * - string hec_key (example: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX")
+      * - int timeout (default: "30")
 
         * optative
     '''
-    def __init__(self,ambiente,timeout=30):
-        if(ambiente.lower() == 'prod'):
-            self.url = 'https://172.31.25.55:8088'
-            self.key = '29A2070B-4D03-4695-8BC9-D332D7B71B64'
-        elif(ambiente.lower() == 'dev'):
-            self.url = 'https://10.56.156.65:8088'
-            self.key = '4da23032-3be2-4435-9be3-e93db3652415'
-        elif(ambiente.lower() == 'shadow'):
-            self.url = 'http://10.54.39.199:8088'
-            self.key = 'e386f95c-97d1-4bcb-b884-313167c3bf11'
-        elif(ambiente.lower() == 'teste'):
-            self.url = 'http://testeee.itau'
-            self.key = 'e386f95c-97d1-4bcb-b884-313167c3bf11'
-        else:
-            raise ValueError("O parametro 'ambiente' deve ser: 'prod', 'dev' ou 'shadow' (informado '"+ambiente+"'")
-                
+    def __init__(self, protocol, url, port, hec_key=None, timeout=30):
+        self.protocol = protocol
+        self.url = url
+        self.port = port
+        self.hec_key = hec_key
         self.timeout = timeout
-        self.ambiente = ambiente
-        self.headers = {'Authorization': 'Splunk '+self.key}
-        self.export_url = self.url+'/services/collector/event'
+        self._headers = { 'Authorization': 'Splunk ' + self.key }
+        self._export_url = f'{ self.url }/services/collector/event'
+        # self.headers = { 'Authorization': 'Splunk ' + self.key }
+        # self.export_url = f'{ self.url }/services/collector/event'
+
+        self._session = Session()
+        # self.session = Session()
 
         
     def __str__(self):
         '''
-        Funcao para print() das variaveis do objeto Splunk
-        OUTPUT: string url
-                string ambiente
-                string hec-key
-        '''
-        splunk_info = {}
-        splunk_info['url'] = self.url
-        splunk_info['ambiente'] = self.ambiente
-        splunk_info['key'] = self.key
-        return str(splunk_info)
+        Return a string (json format) with all the attributes for the Splunk object.
+        Used when print(obj) is called.
 
-    def _export(self,event_data):
+        OUTPUT: 
+            - string protocol
+            - string url
+            - int port
+            - int timeout
+          * - string hec-key
+
+            * if defined
         '''
-        Funcao interna da classe Splunk para envio de dados via thread
-        Nao pode ser chamada pelo objeto instanciado
-        INPUT: string/dict event_data
+        attributes = {}
+        attributes['url'] = self.url
+        attributes['protocol'] = self.protocol
+        attributes['port'] = self.ambienportte
+        attributes['timeout'] = self.timeout
+        if self.hec_key:
+            attributes['hec_key'] = self.hec_key
+        return str(attributes)
+
+
+    def _export(self, event_data):
+        '''
+        Private method responsible for sending data to Splunk.
+        Called by "multiprocessing" class, allowing parallel data exportation.
+        
+        INPUT:
+            - dict event_data
         '''
         try:
-            session = requests.Session()
-            spk_result = session.post(self.export_url, data=event_data, headers=self.headers, verify=False, timeout=self.timeout)
+            spk_out = self._session.post(self._export_url, data=event_data, headers=self._headers, verify=False, timeout=self.timeout)
         except Exception as e:
-            raise Exception('Falha ao exportar dados pra Splunk >> '+str(e)+' <<')
+            raise Exception(f'Unable to connect to Splunk { self.url }: { str(e) }')
         else:
-            if(spk_result.status_code != 200):
-                raise Exception('Retorno Splunk STATUS_CODE='+str(spk_result.status_code)+' >> '+str(spk_result.text)+' <<')
-        finally:
-            session.close()
+            if spk_out.status_code != 200:
+                raise Exception(f'Unexpected status code { str(spk_out.status_code) } received from Splunk { self.url }: { str(spk_out.text) }')
 
-    def send_to_splunk(self,host,source,event):
-        '''
-        Funcao para envio de dados em formato json para o Splunk Itau
-        INPUT: string event_host
-               string event_source
-               string/dict event_data
-        '''
-        event_data = '{"host":"'+host+'","source":"'+source+'","event":'+json.dumps(event)+'}' 
 
-        Process(target=self._export,args=(event_data,)).start()
+    def send_data(self, event_host, event_source, event_event):
+        '''
+        Method responsable for structure the data JSON as Splunk expects and call the _export() private method.
+
+        INPUT: 
+            - string event_host
+            - string event_source
+            - string/dict event_data
+        '''
+        # event_data = '{"host":"'+host+'","source":"'+source+'","event":'+json.dumps(event)+'}' 
+        event_data = {}
+        event_data['host'] = event_host
+        event_data['source'] = event_source
+        event_data['event'] = json.dumps(event_data)
+
+        Process(target=self._export, args=(event_data,)).start()
+        # Process(target=self._export, args=(str(event_data),)).start()
