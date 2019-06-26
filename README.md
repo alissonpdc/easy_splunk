@@ -1,8 +1,6 @@
 [![PyPI](https://img.shields.io/pypi/v/easy_splunk.svg)](https://pypi.python.org/pypi/easy_splunk)
 
-
-<!-- easy_![Splunk logo](static/Splunk_logo.png) -->
-easy_slpunk
+easy_slpunk>
 ===========
 
 blakas;adassa dasj as dkasn dands ask das as d
@@ -16,17 +14,13 @@ Install
 -------
 
 ```
-pip install napalm
+pip install easy_splunk
 ```
 
 
 Upgrading
 ---------
 
-We plan to upgrade napalm as fast as possible. Adding new methods and bugfixes. To upgrade napalm it's a simple as repeating the steps you performed while installing but adding the `-U` flag. For example:
-
 ```
-pip install napalm -U
+pip install easy_splunk -U
 ```
-
-We will be posting news on our slack channel and on Twitter.
