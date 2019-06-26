@@ -1,8 +1,9 @@
 [![PyPI](https://img.shields.io/pypi/v/easy_splunk.svg)](https://pypi.python.org/pypi/easy_splunk)
 
 
-easy_![Splunk logo](static/Splunk_logo.png)
-============================================
+<!-- easy_![Splunk logo](static/Splunk_logo.png) -->
+easy_slpunk
+===========
 
 blakas;adassa dasj as dkasn dands ask das as d
 as as dabfa'dff
