@@ -1,14 +1,3 @@
-##########################################################################
-#                                                                        #
-#    MODULO PYTHON PARA EXPORTACAO DE DADOS VIA JSON PARA SPLUNK ITAU    # 
-#    EXECUCAO VIA THREAD PARA PARALELISTMO                               #
-#                                                                        #
-#    ALISSON PRADO DA CRUZ                                               #
-#    MAIO / 2019                                                         #
-#                                                                        #
-##########################################################################
-
-
 import requests
 import json
 from multiprocessing import Process
@@ -16,10 +5,24 @@ from multiprocessing import Process
 
 class Splunk():
     '''
-    DOCSTRING: Funcao para abstracao do envio de dados em formato json para o Splunk Itau
-    INPUT: string ambiente ("prod"/"dev"/"shadow")
-           int timeout
-    OUTPUT: apenas em caso de erro
+    Splunk() class is responsible for the abstraction of the connection and main functions available in Splunk API.
+    Its attributes represent the configuration parameters of the Splunk connection, such as: 
+        - URL / IP;
+        - Connection port (514 syslog / 8088 HEC);
+        - HTTP Event Collector (HEC) key;
+        - Connection timeout;
+    Its methods abstract the Splunk API complexity, making these APIs available by just setting the minimum arguments required.
+        - print(): print all splunk object attributes as json;
+        - send_data(): send data to Splunk by HEC/syslog;
+
+    INPUT:
+        - string URL ("https://wxyz")
+        - int port
+        - string type ("hec" / "syslog")
+        - *string key
+        - *int timeout
+
+        * optative
     '''
     def __init__(self,ambiente,timeout=30):
         if(ambiente.lower() == 'prod'):
