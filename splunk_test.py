@@ -19,6 +19,6 @@ data_hec["Key_3"] = "Valor_3"
 
 data_syslog = "Syslog message sent by easy_splunk"
 
-# spk_hec.send_data(event_host=host, event_source=source, event_data=data_hec)
-# spk_hec.send_data(event_source=source, event_data=data_hec)
+spk_hec.send_data(event_host=host, event_source=source, event_data=data_hec)
+spk_hec.send_data(event_source=source, event_data=data_hec)
 spk_syslog.send_data(event_data=data_syslog)
