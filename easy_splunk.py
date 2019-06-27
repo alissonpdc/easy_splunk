@@ -114,8 +114,11 @@ class Splunk():
             'output_mode': output_mode
         }
 
-        spk_search = Session().post(search_url, data=data, verify=False, auth=(username, password))
-        results = re.findall(r'(\{[^\n]+\})',spk_search.text)
+        try:
+            spk_search = Session().post(search_url, data=data, verify=False, auth=(username, password))
+            results = re.findall(r'(\{[^\n]+\})',spk_search.text)
+        except Exception as e:
+            raise Exception(f'Unable to run the search on Splunk { self.url }: { str(e) }')
         
         output_list = []
         for result in results:
