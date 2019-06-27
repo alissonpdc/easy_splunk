@@ -97,5 +97,5 @@ class Splunk():
         event_data['source'] = event_source
         event_data['event'] = json.dumps(event_data)
 
-        Process(target=self._export, args=(event_data,)).start()
-        # Process(target=self._export, args=(str(event_data),)).start()
+        # Process(target=self._export, args=(event_data,)).start()
+        Process(target=self._export, args=(str(event_data),)).start()
