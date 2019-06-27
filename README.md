@@ -57,4 +57,7 @@ spk_hec.send_data(event_source=source, event_data=data_hec)
 spk_syslog.send_data(event_data=data_syslog)
 ```
 
+
+Splunk search screen:
+
 ![Splunk Search](/img/splunk.png)
