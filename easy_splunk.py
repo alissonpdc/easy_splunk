@@ -72,8 +72,7 @@ class Splunk():
             - dict event
         '''
         try:
-            print(event)
-            spk_out = self._session.post(url=self._export_url, data=json.dumps(event), headers=self._headers, verify=False, timeout=self.timeout)
+            spk_out = self._session.post(url=self._export_url, data=event, headers=self._headers, verify=False, timeout=self.timeout)
         except Exception as e:
             raise Exception(f'Unable to connect to Splunk { self.url }: { str(e) }')
         else:
@@ -96,5 +95,5 @@ class Splunk():
         data['source'] = event_source
         data['event'] = event_data
 
-        Process(target=self._export, args=(data,)).start()
+        Process(target=self._export, args=(json.dumps(data),)).start()
         # Process(target=self._export, args=(str(data),)).start()
