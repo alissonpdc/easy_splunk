@@ -1,6 +1,6 @@
 [![PyPI](https://img.shields.io/pypi/v/easy_splunk.svg)](https://pypi.python.org/pypi/easy_splunk)
 
-easy_slpunk>
+#easy_slpunk>
 ===========
 
 blakas;adassa dasj as dkasn dands ask das as d
@@ -10,7 +10,7 @@ pd a j a  sodfhashdfiadhsiohaoho
 [link](https://www.google.com)
 
 
-Install
+##Install
 -------
 
 ```
@@ -18,7 +18,7 @@ pip install easy_splunk
 ```
 
 
-Upgrading
+##Upgrading
 ---------
 
 ```
@@ -26,7 +26,7 @@ pip install easy_splunk -U
 ```
 
 
-Usage
+##Usage
 -----
 
 ```
