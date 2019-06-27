@@ -52,15 +52,38 @@ data_syslog = "Syslog message sent by easy_splunk"
 spk_syslog.send_data(event_data=data_syslog)
 
 #Run a specific search and get the result as a list of JSONs
-search = 'index=raw_syslog | head 3'
+search = 'index=raw_syslog | head 1'
 search_output = spk_hec.run_search(username='admin', password='admin', search=search, output_mode="json")
 print(search_output)
 ```
 
 
 **OUTPUTS**
+
 ![Splunk Search](/img/splunk.png)
 
 ```
-[{'preview': False, 'offset': 0, 'result': {'_bkt': 'raw_syslog~0~1C4DDDBB-BFC8-49A2-A2FC-6418F3E80CAD', '_cd': '0:56', '_indextime': '1561619057', '_raw': '**Syslog message sent by easy_splunk**', '_serial': '0', '_si': ['localhost.localdomain', 'raw_syslog'], '_sourcetype': 'syslog', '_time': '2019-06-27 15:04:17.000 CST', 'host': '10.0.0.2', 'index': 'raw_syslog', 'linecount': '1', 'source': 'udp:5514', 'sourcetype': 'syslog', 'splunk_server': 'localhost.localdomain'}}, {'preview': False, 'offset': 1, 'result': {'_bkt': 'raw_syslog~0~1C4DDDBB-BFC8-49A2-A2FC-6418F3E80CAD', '_cd': '0:54', '_indextime': '1561618690', '_raw': '**Syslog message sent by easy_splunk**', '_serial': '1', '_si': ['localhost.localdomain', 'raw_syslog'], '_sourcetype': 'syslog', '_time': '2019-06-27 14:58:10.000 CST', 'host': '10.0.0.2', 'index': 'raw_syslog', 'linecount': '1', 'source': 'udp:5514', 'sourcetype': 'syslog', 'splunk_server': 'localhost.localdomain'}}, {'preview': False, 'offset': 2, 'lastrow': True, 'result': {'_bkt': 'raw_syslog~0~1C4DDDBB-BFC8-49A2-A2FC-6418F3E80CAD', '_cd': '0:52', '_indextime': '1561618534', '_raw': '**Syslog message sent by easy_splunk**', '_serial': '2', '_si': ['localhost.localdomain', 'raw_syslog'], '_sourcetype': 'syslog', '_time': '2019-06-27 14:55:34.000 CST', 'host': '10.0.0.2', 'index': 'raw_syslog', 'linecount': '1', 'source': 'udp:5514', 'sourcetype': 'syslog', 'splunk_server': 'localhost.localdomain'}}]
+[
+    {
+        'preview': False, 
+        'offset': 0, 
+        'result': 
+        {
+            '_bkt': 'raw_syslog~0~1C4DDDBB-BFC8-49A2-A2FC-6418F3E80CAD', 
+            '_cd': '0:56', 
+            '_indextime': '1561619057', 
+            '_raw': 'Syslog message sent by easy_splunk', 
+            '_serial': '0', 
+            '_si': ['localhost.localdomain', 'raw_syslog'], 
+            '_sourcetype': 'syslog', 
+            '_time': '2019-06-27 15:04:17.000 CST', 
+            'host': '10.0.0.2', 
+            'index': 'raw_syslog', 
+            'linecount': '1', 
+            'source': 'udp:5514', 
+            'sourcetype': 'syslog', 
+            'splunk_server': 'localhost.localdomain'
+        }
+    }
+]
 ```
