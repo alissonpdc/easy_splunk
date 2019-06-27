@@ -1,7 +1,6 @@
 from requests import Session
 from multiprocessing import Process
 import json
-import socket
 
 class Splunk():
     '''
@@ -89,11 +88,10 @@ class Splunk():
             - string event_source
             - string/dict event_data
         '''
-        # event_data = '{"host":"'+host+'","source":"'+source+'","event":'+json.dumps(event)+'}' 
+
         data = {}
         data['host'] = event_host
         data['source'] = event_source
         data['event'] = event_data
 
         Process(target=self._export, args=(json.dumps(data),)).start()
-        # Process(target=self._export, args=(str(data),)).start()
