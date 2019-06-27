@@ -102,6 +102,13 @@ class Splunk():
             Process(target=self._export, args=(json.dumps(data),)).start()
     
     def run_search(self):
-        pass
+        data = {
+            'search': 'search index=raw_syslog earliest=-5min',
+            'output_mode': 'xml'
+        }
+
+        response = requests.post('https://10.0.0.2:8089/services/search/jobs/export', data=data, verify=False, auth=('admin', 'dsh1991dsh'))
+        print(response.text)
+
     def get_result(self):
         pass
