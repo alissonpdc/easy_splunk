@@ -3,6 +3,7 @@ from multiprocessing import Process
 import json
 import socket
 import urllib3
+import re
 
 class Splunk():
     '''
@@ -113,4 +114,8 @@ class Splunk():
         }
 
         spk_search = Session().post(search_url, data=data, verify=False, auth=(username, password))
-        print(spk_search.text)
+        
+        result = re.findall(r'(\{[^\n]+\})',spk_search.text)
+        
+        print(result)
+
