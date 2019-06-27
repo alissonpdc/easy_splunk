@@ -63,18 +63,17 @@ class Splunk():
         return str(attributes)
 
 
-    def _export(self, event_data):
+    def _export(self, event):
         '''
         Private method responsible for sending data to Splunk.
         Called by "multiprocessing" class, allowing parallel data exportation.
         
         INPUT:
-            - dict event_data
+            - dict event
         '''
         try:
-            print(self._export_url)
-            print(self._headers)
-            spk_out = self._session.post(url=self._export_url, data=event_data, headers=self._headers, verify=False, timeout=self.timeout)
+            print(event)
+            spk_out = self._session.post(url=self._export_url, data=event, headers=self._headers, verify=False, timeout=self.timeout)
         except Exception as e:
             raise Exception(f'Unable to connect to Splunk { self.url }: { str(e) }')
         else:
@@ -92,10 +91,10 @@ class Splunk():
             - string/dict event_data
         '''
         # event_data = '{"host":"'+host+'","source":"'+source+'","event":'+json.dumps(event)+'}' 
-        event_data = {}
-        event_data['host'] = event_host
-        event_data['source'] = event_source
-        event_data['event'] = json.dumps(event_data)
+        data = {}
+        data['host'] = event_host
+        data['source'] = event_source
+        data['event'] = event_data
 
-        # Process(target=self._export, args=(event_data,)).start()
-        Process(target=self._export, args=(str(event_data),)).start()
+        Process(target=self._export, args=(data,)).start()
+        # Process(target=self._export, args=(str(event_data),)).start()
