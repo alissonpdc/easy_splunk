@@ -77,7 +77,7 @@ print(search_output)
             '_indextime': '1561619057', 
             '_raw': 'Syslog message sent by easy_splunk', 
             '_serial': '0', 
-            '_si': ['localhost.localdomain', 'raw_syslog'], 
+            '_si': ['localhost', 'raw_syslog'], 
             '_sourcetype': 'syslog', 
             '_time': '2019-06-27 15:04:17.000 CST', 
             'host': '10.0.0.2', 
