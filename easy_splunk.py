@@ -80,7 +80,7 @@ class Splunk():
                 raise Exception(f'Unexpected status code { str(spk_out.status_code) } received from Splunk { self.url }: { str(spk_out.text) }')
 
 
-    def send_data(self, event_host, event_source, event_event):
+    def send_data(self, event_host, event_source, event_data):
         '''
         Method responsable for structure the data JSON as Splunk expects and call the _export() private method.
 
