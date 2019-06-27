@@ -2,6 +2,7 @@ from requests import Session
 from multiprocessing import Process
 import json
 import socket
+import urllib3
 
 class Splunk():
     '''
@@ -36,6 +37,7 @@ class Splunk():
             self._headers = { 'Authorization': 'Splunk ' + self.hec_key }
             self._export_url = f'{ self.protocol }://{ self.url }:{ self.port }/services/collector/event'
 
+        urllib3.disable_warnings()
         
     def __str__(self):
         '''
@@ -108,7 +110,7 @@ class Splunk():
         }
 
         response = Session().post('https://10.0.0.2:8089/services/search/jobs/export', data=data, verify=False, auth=('admin', 'dsh1991dsh'))
-        print(response.text)
+        print(json.dumps(response.text))
 
     def get_result(self):
         pass
