@@ -103,7 +103,7 @@ class Splunk():
     
     def run_search(self):
         data = {
-            'search': 'search index=raw_syslog earliest=-5min',
+            'search': 'search index=raw_syslog earliest=-5min | stats count',
             'output_mode': 'json'
         }
 
