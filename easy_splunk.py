@@ -113,4 +113,4 @@ class Splunk():
         }
 
         spk_search = Session().post(search_url, data=data, verify=False, auth=(username, password))
-        print(json.dumps(spk_search.text))
+        print(spk_search.text)
