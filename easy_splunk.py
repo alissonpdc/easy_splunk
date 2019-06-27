@@ -56,7 +56,7 @@ class Splunk():
         attributes = {}
         attributes['url'] = self.url
         attributes['protocol'] = self.protocol
-        attributes['port'] = self.ambienportte
+        attributes['port'] = self.port
         attributes['timeout'] = self.timeout
         if self.hec_key:
             attributes['hec_key'] = self.hec_key
