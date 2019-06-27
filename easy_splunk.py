@@ -105,12 +105,12 @@ class Splunk():
     
     def run_search(self):
         data = {
-            'search': 'search index=raw_syslog earliest=-5min | stats count',
+            'search': 'search index=raw_syslog earliest=-5min ',
             'output_mode': 'json'
         }
 
         response = Session().post('https://10.0.0.2:8089/services/search/jobs/export', data=data, verify=False, auth=('admin', 'dsh1991dsh'))
-        print(json.dumps(response.text))
+        print(json.loads(response.text))
 
     def get_result(self):
         pass
