@@ -103,14 +103,14 @@ class Splunk():
 
             Process(target=self._export, args=(json.dumps(data),)).start()
     
-    def run_search(self):
+    def run_search(self, username, password, search, output_mode="json"):
+        '''
+        '''
+        search_url = f'https://{ self.url }:8089/services/search/jobs/export'
         data = {
-            'search': 'search index=raw_syslog earliest=-5min ',
-            'output_mode': 'json'
+            'search': f'search { search }',
+            'output_mode': output_mode
         }
 
-        response = Session().post('https://10.0.0.2:8089/services/search/jobs/export', data=data, verify=False, auth=('admin', 'dsh1991dsh'))
+        spk_search = Session().post(search_url, data=data, verify=False, auth=(username, password))
         print(json.dumps(response.text))
-
-    def get_result(self):
-        pass

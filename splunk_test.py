@@ -24,5 +24,5 @@ spk_hec.send_data(event_host=host, event_source=source, event_data=data_hec)
 spk_hec.send_data(event_source=source, event_data=data_hec)
 spk_syslog.send_data(event_data=data_syslog)
 
-
-spk_hec.run_search()
+search = 'index=raw_syslog | head 3'
+spk_hec.run_search(username='admin', password='dsh1991dsh', search=search, output_mode="json")
