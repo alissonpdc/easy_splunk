@@ -26,6 +26,6 @@ data_syslog = "Syslog message sent by easy_splunk"
 spk_syslog.send_data(event_data=data_syslog)
 
 #Run a specific search and get the result as a list of JSONs
-search = 'index=raw_syslog | head 3'
+search = 'index=raw_syslogsss'
 search_output = spk_hec.run_search(username='admin', password='dsh1991dsh', search=search, output_mode="json")
 print(search_output)

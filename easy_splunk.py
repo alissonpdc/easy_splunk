@@ -103,6 +103,7 @@ class Splunk():
             data['event'] = event_data
 
             Process(target=self._export, args=(json.dumps(data),)).start()
+            
     
     def run_search(self, username, password, search, output_mode="json"):
         '''
