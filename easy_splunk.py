@@ -1,6 +1,7 @@
 from requests import Session
 from multiprocessing import Process
 import json
+import socket
 
 class Splunk():
     '''
@@ -29,13 +30,11 @@ class Splunk():
         self.port = port
         self.hec_key = hec_key
         self.timeout = timeout
-        self._headers = { 'Authorization': 'Splunk ' + self.hec_key }
-        self._export_url = f'{ self.protocol }://{ self.url }:{ self.port }/services/collector/event'
-        # self.headers = { 'Authorization': 'Splunk ' + self.key }
-        # self.export_url = f'{ self.url }/services/collector/event'
-
         self._session = Session()
-        # self.session = Session()
+
+        if self.hec_key:
+            self._headers = { 'Authorization': 'Splunk ' + self.hec_key }
+            self._export_url = f'{ self.protocol }://{ self.url }:{ self.port }/services/collector/event'
 
         
     def __str__(self):
@@ -79,7 +78,7 @@ class Splunk():
                 raise Exception(f'Unexpected status code { str(spk_out.status_code) } received from Splunk { self.url }: { str(spk_out.text) }')
 
 
-    def send_data(self, event_host, event_source, event_data):
+    def send_data(self, event_host=None, event_source=None, event_data):
         '''
         Method responsable for structure the data JSON as Splunk expects and call the _export() private method.
 
@@ -88,10 +87,16 @@ class Splunk():
             - string event_source
             - string/dict event_data
         '''
+        if self.hec_key:
+            data = {}
+            if event_host:
+                data['host'] = event_host
+            if event_source:
+                data['source'] = event_source
+            data['event'] = event_data
 
-        data = {}
-        data['host'] = event_host
-        data['source'] = event_source
-        data['event'] = event_data
-
-        Process(target=self._export, args=(json.dumps(data),)).start()
+            Process(target=self._export, args=(json.dumps(data),)).start()
+        
+        if self.protocol == "syslog":
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            sock.sendto(event_data, (self.url, self.port))
