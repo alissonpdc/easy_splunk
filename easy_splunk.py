@@ -73,7 +73,7 @@ class Splunk():
         '''
         try:
             print(self._export_url)
-            print(semf._headers)
+            print(self._headers)
             spk_out = self._session.post(url=self._export_url, data=event_data, headers=self._headers, verify=False, timeout=self.timeout)
         except Exception as e:
             raise Exception(f'Unable to connect to Splunk { self.url }: { str(e) }')
