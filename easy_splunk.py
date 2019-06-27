@@ -117,7 +117,7 @@ class Splunk():
         results = re.findall(r'(\{[^\n]+\})',spk_search.text)
         
         output_list = []
-        for result in result:
+        for result in results:
             output_list.append(json.loads(result))
 
         return output_list
