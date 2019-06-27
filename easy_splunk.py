@@ -105,13 +105,20 @@ class Splunk():
             Process(target=self._export, args=(json.dumps(data),)).start()
             
     
-    def run_search(self, username, password, search, output_mode="json"):
+    def run_search(self, username, password, search):
         '''
+        Method to search and retrieve results from Splunk API.
+        Results are returned as a list of JSONs.
+
+        INPUT:
+            - string username
+            - string password
+            - string search
         '''
         search_url = f'https://{ self.url }:8089/services/search/jobs/export'
         data = {
             'search': f'search { search }',
-            'output_mode': output_mode
+            'output_mode': 'json'
         }
 
         try:

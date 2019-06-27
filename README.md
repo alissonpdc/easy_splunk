@@ -53,7 +53,7 @@ spk_syslog.send_data(event_data=data_syslog)
 
 #Run a specific search and get the result as a list of JSONs
 search = 'index=raw_syslog | head 1'
-search_output = spk_hec.run_search(username='admin', password='admin', search=search, output_mode="json")
+search_output = spk_hec.run_search(username='admin', password='admin', search=search)
 print(search_output)
 ```
 
