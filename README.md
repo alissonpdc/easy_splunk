@@ -24,3 +24,11 @@ Upgrading
 ```
 pip install easy_splunk -U
 ```
+
+
+Usage
+-----
+
+```
+from easy_splunk import Splunk
+```
