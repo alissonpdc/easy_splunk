@@ -30,7 +30,7 @@ class Splunk():
         self.port = port
         self.hec_key = hec_key
         self.timeout = timeout
-        self._headers = { 'Authorization': 'Splunk ' + self.key }
+        self._headers = { 'Authorization': 'Splunk ' + self.hec_key }
         self._export_url = f'{ self.url }/services/collector/event'
         # self.headers = { 'Authorization': 'Splunk ' + self.key }
         # self.export_url = f'{ self.url }/services/collector/event'
