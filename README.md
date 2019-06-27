@@ -58,9 +58,12 @@ print(search_output)
 ```
 
 
-**OUTPUTS**
+**OUTPUTS SEND_DATA()**
 
 ![Splunk Search](/img/splunk.png)
+
+
+**OUTPUT RUN_SEARCH()**
 
 ```
 [
@@ -82,7 +85,7 @@ print(search_output)
             'linecount': '1', 
             'source': 'udp:5514', 
             'sourcetype': 'syslog', 
-            'splunk_server': 'localhost.localdomain'
+            'splunk_server': 'localhost'
         }
     }
 ]
