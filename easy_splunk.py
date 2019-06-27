@@ -87,7 +87,11 @@ class Splunk():
             - string event_source
             - string/dict event_data
         '''
-        if self.hec_key:
+        if self.protocol == "syslog":
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            sock.sendto(event_data.encode(), (self.url, int(self.port)))
+        
+        elif self.hec_key:
             data = {}
             if event_host:
                 data['host'] = event_host
@@ -96,7 +100,8 @@ class Splunk():
             data['event'] = event_data
 
             Process(target=self._export, args=(json.dumps(data),)).start()
-        
-        if self.protocol == "syslog":
-            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            sock.sendto(event_data.encode(), (self.url, int(self.port)))
+    
+    def run_search(self):
+        pass
+    def get_result(self):
+        pass
