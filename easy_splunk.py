@@ -114,6 +114,10 @@ class Splunk():
         }
 
         spk_search = Session().post(search_url, data=data, verify=False, auth=(username, password))
-        result = re.findall(r'(\{[^\n]+\})',spk_search.text)
+        results = re.findall(r'(\{[^\n]+\})',spk_search.text)
         
-        return json.loads(result)
+        output_list = []
+        for result in result:
+            output_list.append(json.loads(result))
+
+        return output_list
