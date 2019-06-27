@@ -99,4 +99,4 @@ class Splunk():
         
         if self.protocol == "syslog":
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            sock.sendto(event_data, (self.url, self.port))
+            sock.sendto(event_data.encode(), (self.url, self.port))
