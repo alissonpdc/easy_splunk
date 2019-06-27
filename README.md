@@ -3,12 +3,6 @@
 easy_slpunk>
 ============
 
-blakas;adassa dasj as dkasn dands ask das as d
-as as dabfa'dff
-asdfaipda
-pd a j a  sodfhashdfiadhsiohaoho
-[link](https://www.google.com)
-
 
 Install
 -------
@@ -59,5 +53,4 @@ spk_syslog.send_data(event_data=data_syslog)
 
 
 Splunk search screen:
-
 ![Splunk Search](/img/splunk.png)
