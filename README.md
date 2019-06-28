@@ -34,8 +34,8 @@ source = "EVENT_SOURCE"
 
 
 try:
-    spk_hec = Splunk(protocol="https", url="10.0.0.2", port="8088", 
-        hec_key="e51e9c62-5f25-46cf-9a4e-218638cdab77", timeout=60)
+    spk_hec = Splunk(protocol="https", url="10.0.0.2", port="8088", timeout=60
+        hec_key="e51e9c62-5f25-46cf-9a4e-218638cdab77")
     spk_syslog = Splunk(protocol="syslog", url="10.0.0.2", port="5514")
 except:
     raise
