@@ -3,6 +3,8 @@
 easy_slpunk>
 ============
 
+A simple and complete package to abstract main operations with Splunk API (send data / run searches) 
+
 
 Install
 -------
