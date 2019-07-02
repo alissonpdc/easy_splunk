@@ -5,7 +5,7 @@ with open("README.md", "r") as readme:
 
 setuptools.setup(
     name="easy_splunk",
-    version="0.1.0",
+    version="0.1.1",
     author="Alisson Prado da Cruz",
     author_email="alissonpdc@gmail.com",
     description="A simple and complete package to abstract main operations with Splunk API (send data / run search / get result)",
