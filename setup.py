@@ -11,12 +11,11 @@ setuptools.setup(
     description="A simple and complete package to abstract main operations with Splunk API (send data / run search / get result)",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/alissonpdc/pysplunk",
+    url="https://github.com/alissonpdc/easy_splunk",
     packages=setuptools.find_packages(),
     keywords=['splunk'],
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     classifiers=[
-        "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
